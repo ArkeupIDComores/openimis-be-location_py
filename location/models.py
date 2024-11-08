@@ -1,5 +1,3 @@
-from functools import reduce
-import django
 from django.core.cache import caches
 from django_redis.cache import RedisCache
 import uuid
@@ -71,7 +69,6 @@ class LocationManager(models.Manager):
             ),
         )
         return self.get_location_from_ids((parents), loc_type) if loc_type else parents
-
 
     def allowed(self, user_id, loc_types=["R", "D", "W", "V"], strict=True, qs=False):
         strict_sql = """
@@ -262,6 +259,11 @@ def cache_location_graph(location_id=None):
     cache.set("location_types", location_types, timeout=None)
 
 
+def cache_location_if_not_cached():
+    if not cache.has_key("location_types"):
+        cache_location_graph()
+
+
 def extend_allowed_locations(location_pks, strict=True, loc_types=None):
     """
     Get underlying locations for given location PKs.
@@ -271,11 +273,8 @@ def extend_allowed_locations(location_pks, strict=True, loc_types=None):
         logger.error(
             f"extend_allowed_locations is expecting a list but received {location_pks}"
         )
+    cache_location_if_not_cached()
     graph = cache.get("location_graph")
-    if not graph:
-        cache_location_graph()
-        graph = cache.get("location_graph")
-
     result_pks = set()
     to_visit = set(location_pks)
     visited = set()
@@ -591,13 +590,11 @@ class UserDistrict(core_models.VersionedModel):
         cachedata = cache.get(f"user_districts_{user.id}")
         districts = []
         if cachedata is None:
-            cache_district = cache.get("location_types")
-            if not cache_district:
-                cache_location_graph()
-                cache_district = cache.get("location_types")
+            cache_location_if_not_cached()
+            cache_location_type = cache.get("location_types")
             cachedata = []
             if user.is_superuser:
-                for loc in cache_district['D']:
+                for loc in cache_location_type['D']:
                     cachedata.append([0, loc])
             elif not isinstance(user, core_models.InteractiveUser):
                 if isinstance(user, core_models.TechnicalUser):
@@ -617,7 +614,7 @@ class UserDistrict(core_models.VersionedModel):
                     .order_by("location__code")
                 )
             for d in districts:
-                cachedata.append([d.id, d.location])
+                cachedata.append([d.id, d.location_id])
 
             cache.set(f"user_districts_{user.id}", cachedata)
 
@@ -672,7 +669,6 @@ def location_deleted(sender, instance, **kwargs):
     cache.delete(f"location_{instance.id}")
     update_location_cache(sender, instance, location_id=instance.id, **kwargs)
     free_cache_for_user()
-
 
 
 class OfficerVillage(core_models.VersionedModel):

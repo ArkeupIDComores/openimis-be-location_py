@@ -7,7 +7,6 @@ from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import ValidationError, PermissionDenied
 from django.utils.translation import gettext as _
 from graphene import InputObjectType
-from django.core.cache import cache
 
 import copy
 

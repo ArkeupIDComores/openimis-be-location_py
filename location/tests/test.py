@@ -9,12 +9,7 @@ from core.test_helpers import create_test_officer, create_test_interactive_user
 from claim.test_helpers import create_test_claim_admin
 from django.core.cache import caches
 
-from location.models import LocationManager
-from core.services import (
-    create_or_update_interactive_user,
-    create_or_update_core_user,
-    create_or_update_user_districts,
-)
+from location.models import LocationManager, UserDistrict
 from core.utils import filter_validity
 from core.models.user import Role
 
@@ -123,6 +118,8 @@ class LocationTest(TestCase):
         )
         cached = caches["location"].get(f"user_locations_{self.test_user._u.id}")
         self.assertIsNotNone(cached)
+        districts = UserDistrict.get_user_districts(self.test_user)
+        self.assertIsNotNone(districts)
 
     def test_cache_invalidation(self):
         LocationManager().is_allowed(self.test_user, [])
