@@ -608,6 +608,7 @@ class UserDistrict(core_models.VersionedModel):
                     UserDistrict.objects.filter(
                         user=user,
                         location__type="D",
+                        location__parent__isnull=False,
                         *filter_validity(),
                         *filter_validity(prefix="location__"),
                     )
@@ -622,7 +623,8 @@ class UserDistrict(core_models.VersionedModel):
         if not districts and cachedata:
             for d in cachedata:
                 location = cache.get(f"location_{d[1]}")
-                location.parent = cache.get(f"location_{location.parent_id}")
+                if location.parent_id:
+                    location.parent = cache.get(f"location_{location.parent_id}")
                 districts.append(UserDistrict(id=d[0], user=user, location=location))
 
         return districts
