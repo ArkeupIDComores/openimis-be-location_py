@@ -249,7 +249,7 @@ class HealthFacility(core_models.VersionedModel, core_models.ExtendableModel):
     uuid = models.CharField(
         db_column='HfUUID', max_length=36, default=uuid.uuid4, unique=True)
 
-    code = models.CharField(db_column='HFCode', max_length=8)
+    code = models.CharField(db_column='HFCode', max_length=50)
     name = models.CharField(db_column='HFName', max_length=100)
     acc_code = models.CharField(
         db_column='AccCode', max_length=25, blank=True, null=True)

@@ -215,7 +215,7 @@ class HealthFacilityCodeInputType(graphene.String):
 
     @staticmethod
     def coerce_string(value):
-        assert_string_length(value, 8)
+        assert_string_length(value, LocationConfig.max_health_facility_code_length)
         return value
 
     serialize = coerce_string
@@ -224,7 +224,7 @@ class HealthFacilityCodeInputType(graphene.String):
     @staticmethod
     def parse_literal(ast):
         result = graphene.String.parse_literal(ast)
-        assert_string_length(result, 8)
+        assert_string_length(result, LocationConfig.max_health_facility_code_length)
         return result
 
 

@@ -14,6 +14,7 @@ DEFAULT_CFG = {
     "gql_mutation_create_health_facilities_perms": ["121102"],
     "gql_mutation_edit_health_facilities_perms": ["121103"],
     "gql_mutation_delete_health_facilities_perms": ["121104"],
+    "max_health_facility_code_length": 8,
     "health_facility_level": [
         {
             "code": "D",
@@ -46,6 +47,7 @@ class LocationConfig(AppConfig):
     gql_mutation_create_health_facilities_perms = []
     gql_mutation_edit_health_facilities_perms = []
     gql_mutation_delete_health_facilities_perms = []
+    max_health_facility_code_length = None
 
     health_facility_level = []
     health_facility_contract_dates_mandatory = None
