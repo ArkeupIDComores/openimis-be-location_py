@@ -155,7 +155,7 @@ class Location(core_models.VersionedModel, core_models.ExtendableModel):
     uuid = models.CharField(db_column='LocationUUID',
                             max_length=36, default=uuid.uuid4, unique=True)
     code = models.CharField(db_column='LocationCode',
-                            max_length=8, blank=True, null=True)
+                            max_length=50, blank=True, null=True)
     name = models.CharField(db_column='LocationName',
                             max_length=50, blank=True, null=True)
     parent = models.ForeignKey('Location', models.DO_NOTHING,
