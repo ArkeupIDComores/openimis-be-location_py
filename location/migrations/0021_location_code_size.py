@@ -20,6 +20,7 @@ class Migration(migrations.Migration):
             DROP VIEW IF EXISTS public."uvwNumberPolicySold";
             DROP VIEW IF EXISTS public."uvwPopulation";
             DROP VIEW IF EXISTS public."uvwPremiumCollection";
+            DROP VIEW IF EXISTS public."uvwpremiumcollection";
             DROP VIEW IF EXISTS public."uvwAmountRejected";
             DROP VIEW IF EXISTS public."uvwAmountClaimed";
             DROP VIEW IF EXISTS public."uvwAmountValuated";
