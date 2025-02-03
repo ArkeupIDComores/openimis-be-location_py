@@ -19,15 +19,15 @@ def add_rights(apps, schema_editor):
         and RoleID not in (select RoleID from tblRoleRight tr where RightID in (121901)
             group by RoleID )
     """
-    insert_role_right_for_system(4, 121901)
-    insert_role_right_for_system(8, 121901)
-    insert_role_right_for_system(128, 121901)
-    insert_role_right_for_system(256, 121901)
+    insert_role_right_for_system(4, 121901, apps)
+    insert_role_right_for_system(8, 121901, apps)
+    insert_role_right_for_system(128, 121901, apps)
+    insert_role_right_for_system(256, 121901, apps)
 
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('location', '0008_add_enrollment_officer_gql_query_location_right')
+        ("location", "0008_add_enrollment_officer_gql_query_location_right")
     ]
 
     operations = [
