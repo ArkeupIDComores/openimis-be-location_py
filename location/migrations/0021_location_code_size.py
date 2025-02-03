@@ -8,15 +8,24 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+
+        migrations.RunSQL(
+            """
+            -- Delete View first
+            DROP VIEW IF EXISTS public."tblDistricts";
+            DROP VIEW IF EXISTS public."tblRegions";
+            DROP VIEW IF EXISTS public."tblVillages";
+            DROP VIEW IF EXISTS public."tblWards";
+            """
+        ),
         migrations.AlterField(
             model_name='location',
             name='code',
             field=models.CharField(db_column='LocationCode', max_length=50),
         ),
-
         migrations.RunSQL(
             """
-            -- Recrée la vue "uvwAmountRejected" pour les montants rejetés
+            -- Recreate View
             CREATE OR REPLACE VIEW public."tblDistricts"
             AS
             SELECT "tblLocations"."LocationId" AS "DistrictId",
