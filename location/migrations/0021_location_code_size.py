@@ -17,34 +17,34 @@ class Migration(migrations.Migration):
             DROP VIEW IF EXISTS public."tblVillages";
             DROP VIEW IF EXISTS public."tblWards";
 
-            DROP VIEW IF EXISTS public."uvwExpenditureInsureeRange"
-            DROP VIEW IF EXISTS public."uvwLocations"
-            DROP VIEW IF EXISTS public."uvwNumberInsureeAcquired"
-            DROP VIEW IF EXISTS public."uvwNumberOfInsuredHouseholds"
-            DROP VIEW IF EXISTS public."uvwNumberPolicyRenewed"
-            DROP VIEW IF EXISTS public."uvwNumberPolicySold"
-            DROP VIEW IF EXISTS public."uvwPopulation"
-            DROP VIEW IF EXISTS public."uvwPremiumCollection"
-            DROP VIEW IF EXISTS public."uvwAmountRejected"
-            DROP VIEW IF EXISTS public."uvwAmountClaimed"
-            DROP VIEW IF EXISTS public."uvwAmountValuated"
-            DROP VIEW IF EXISTS public."uvwClaimEntered"
-            DROP VIEW IF EXISTS public."uvwClaimProcessed"
-            DROP VIEW IF EXISTS public."uvwClaimRejected"
-            DROP VIEW IF EXISTS public."uvwClaimSent"
-            DROP VIEW IF EXISTS public."uvwClaimSubmitted"
-            DROP VIEW IF EXISTS public."uvwClaimValuated"
-            DROP VIEW IF EXISTS public."uvwHospitalAdmissions"
-            DROP VIEW IF EXISTS public."uvwHospitalDays"
-            DROP VIEW IF EXISTS public."uvwAmountApproved"
-            DROP VIEW IF EXISTS public."uvwNumberFeedbackAnswerYes"
-            DROP VIEW IF EXISTS public."uvwNumberFeedbackResponded"
-            DROP VIEW IF EXISTS public."uvwNumberFeedbackSent"
-            DROP VIEW IF EXISTS public."uvwOverallAssessment"
-            DROP VIEW IF EXISTS public."uvwVisit"
-            DROP VIEW IF EXISTS public."uvwItemUtilization"
-            DROP VIEW IF EXISTS public."uvwServiceUtilization"
-            DROP VIEW IF EXISTS public."uvwItemExpenditures"
+            DROP VIEW IF EXISTS public."uvwExpenditureInsureeRange";
+            DROP VIEW IF EXISTS public."uvwLocations";
+            DROP VIEW IF EXISTS public."uvwNumberInsureeAcquired";
+            DROP VIEW IF EXISTS public."uvwNumberOfInsuredHouseholds";
+            DROP VIEW IF EXISTS public."uvwNumberPolicyRenewed";
+            DROP VIEW IF EXISTS public."uvwNumberPolicySold";
+            DROP VIEW IF EXISTS public."uvwPopulation";
+            DROP VIEW IF EXISTS public."uvwPremiumCollection";
+            DROP VIEW IF EXISTS public."uvwAmountRejected";
+            DROP VIEW IF EXISTS public."uvwAmountClaimed";
+            DROP VIEW IF EXISTS public."uvwAmountValuated";
+            DROP VIEW IF EXISTS public."uvwClaimEntered";
+            DROP VIEW IF EXISTS public."uvwClaimProcessed";
+            DROP VIEW IF EXISTS public."uvwClaimRejected";
+            DROP VIEW IF EXISTS public."uvwClaimSent";
+            DROP VIEW IF EXISTS public."uvwClaimSubmitted";
+            DROP VIEW IF EXISTS public."uvwClaimValuated";
+            DROP VIEW IF EXISTS public."uvwHospitalAdmissions";
+            DROP VIEW IF EXISTS public."uvwHospitalDays";
+            DROP VIEW IF EXISTS public."uvwAmountApproved";
+            DROP VIEW IF EXISTS public."uvwNumberFeedbackAnswerYes";
+            DROP VIEW IF EXISTS public."uvwNumberFeedbackResponded";
+            DROP VIEW IF EXISTS public."uvwNumberFeedbackSent";
+            DROP VIEW IF EXISTS public."uvwOverallAssessment";
+            DROP VIEW IF EXISTS public."uvwVisit";
+            DROP VIEW IF EXISTS public."uvwItemUtilization";
+            DROP VIEW IF EXISTS public."uvwServiceUtilization";
+            DROP VIEW IF EXISTS public."uvwItemExpenditures";
             """
         ),
         migrations.AlterField(
