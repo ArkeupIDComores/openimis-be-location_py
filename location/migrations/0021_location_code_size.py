@@ -12,11 +12,6 @@ class Migration(migrations.Migration):
         migrations.RunSQL(
             """
             -- Delete View first
-            DROP VIEW IF EXISTS public."tblDistricts";
-            DROP VIEW IF EXISTS public."tblRegions";
-            DROP VIEW IF EXISTS public."tblVillages";
-            DROP VIEW IF EXISTS public."tblWards";
-
             DROP VIEW IF EXISTS public."uvwExpenditureInsureeRange";
             DROP VIEW IF EXISTS public."uvwLocations";
             DROP VIEW IF EXISTS public."uvwNumberInsureeAcquired";
@@ -45,6 +40,10 @@ class Migration(migrations.Migration):
             DROP VIEW IF EXISTS public."uvwItemUtilization";
             DROP VIEW IF EXISTS public."uvwServiceUtilization";
             DROP VIEW IF EXISTS public."uvwItemExpenditures";
+            DROP VIEW IF EXISTS public."tblDistricts";
+            DROP VIEW IF EXISTS public."tblRegions";
+            DROP VIEW IF EXISTS public."tblVillages";
+            DROP VIEW IF EXISTS public."tblWards";
             """
         ),
         migrations.AlterField(
