@@ -138,7 +138,7 @@ class Query(graphene.ObjectType):
                     validity_to__isnull=True
                 ).first()
             if prescriber:
-                hflist = hflist.filter(Q(id=prescriber.main_health_facility.id) | Q(id__in=[hf.id for hf in prescriber.authorized_health_facilities]))
+                hflist = hflist.filter(Q(id=prescriber.main_health_facility.id) | Q(id__in=[hf.id for hf in prescriber.authorized_health_facilities.all()]))
         return hflist
 
     def resolve_user_districts(self, info, **kwargs):
