@@ -5,6 +5,7 @@ from core.schema import OrderedDjangoFilterConnectionField
 from core.schema import signal_mutation_module_validate
 from django.utils.translation import gettext as _
 from graphene_django.filter import DjangoFilterConnectionField
+from claim.models import Prescriber
 from .gql_mutations import *
 from .gql_queries import *
 from .models import *
@@ -42,6 +43,7 @@ class Query(graphene.ObjectType):
         region_uuid=graphene.String(),
         district_uuid=graphene.String(),
         districts_uuids=graphene.List(of_type=graphene.String),
+        prescriber = graphene.String(),
         ignore_location=graphene.Boolean()
     )
     validate_location_code = graphene.Field(
@@ -114,6 +116,7 @@ class Query(graphene.ObjectType):
         district_uuid = kwargs.get('district_uuid')
         district_uuids = kwargs.get('districts_uuids')
         region_uuid = kwargs.get('region_uuid')
+        prescriber_uuid = kwargs.get('prescriber')
         if search is not None:
             filters += [Q(code__icontains=search) | Q(name__icontains=search)]
         if district_uuid is not None:
@@ -128,7 +131,15 @@ class Query(graphene.ObjectType):
 
           if settings.ROW_SECURITY and not info.context.user._u.is_imis_admin:
               filters += [LocationManager().build_user_location_filter_query(info.context.user._u, loc_types= ['D'])]
-        return HealthFacility.objects.filter(*filters)
+        hflist=HealthFacility.objects.filter(*filters)
+        if prescriber_uuid is not None:
+            prescriber = Prescriber.objects.filter(
+                    uuid=prescriber_uuid,
+                    validity_to__isnull=True
+                ).first()
+            if prescriber:
+                hflist = hflist.filter(Q(id=prescriber.main_health_facility.id) | Q(id__in=[hf.id for hf in prescriber.authorized_health_facilities.all()]))
+        return hflist
 
     def resolve_user_districts(self, info, **kwargs):
         if info.context.user.is_anonymous:
